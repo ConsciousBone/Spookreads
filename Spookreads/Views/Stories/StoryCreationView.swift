@@ -36,12 +36,14 @@ struct StoryCreationView: View {
                     if characters.isEmpty {
                         Text("No characters.")
                     } else {
-                        ForEach(characters) { character in
+                        ForEach($characters) { $char in
                             NavigationLink {
-                                Text(character.name)
-                                Text(character.description)
+                                CharacterAboutView(
+                                    name: $char.name,
+                                    description: $char.description
+                                )
                             } label: {
-                                Text(character.name)
+                                Text(char.name)
                             }
                         }
                     }
