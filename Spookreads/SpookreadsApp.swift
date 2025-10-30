@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct SpookreadsApp: App {
@@ -13,5 +14,6 @@ struct SpookreadsApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: [StoryItem.self]) // gotta store stuff frfr
     }
 }
