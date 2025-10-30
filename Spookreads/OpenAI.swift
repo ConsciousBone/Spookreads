@@ -21,6 +21,16 @@ private enum APIConfig { // user changable thingy
     }
 }
 
+struct ChatResponse: Decodable {
+    struct Choice: Decodable {
+        struct Message: Decodable {
+            let content: String
+        }
+        let message: Message
+    }
+    let choices: [Choice]
+}
+
 private struct ChatRequest: Encodable {
     let model: String
     let messages: [Message]
@@ -85,4 +95,69 @@ func sendRequestToAI(
     
     // send the stuffs to closedai
     var req = URLRequest(url: URL(string: APIConfig.apiURLString)!)
+    req.httpMethod = "POST"
+    req.setValue(
+        "application/json",
+        forHTTPHeaderField: "Content-Type"
+    )
+    req.setValue(
+        proxySecret,
+        forHTTPHeaderField: "X-Proxy-Secret"
+    )
+    req.httpBody = json
+    req.timeoutInterval = 120
+    
+    URLSession.shared.dataTask(with: req) { data, resp, err in
+        func finish(_ result: Result<String, Error>) {
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        
+        if let err = err {
+            return finish(.failure(err))
+        }
+        
+        guard let http = resp as? HTTPURLResponse else {
+            return finish(.failure(NSError(
+                domain: "Spookreads",
+                code: 3,
+                userInfo: [NSLocalizedDescriptionKey: "no http response"]
+            )))
+        }
+        guard (200..<300).contains(http.statusCode) else {
+            let body = data.flatMap {
+                String(data: $0, encoding: .utf8)
+            } ?? "<no body>"
+            return finish(.failure(NSError(
+                domain: "Spookreads",
+                code: http.statusCode,
+                userInfo: [NSLocalizedDescriptionKey: "HTTP \(http.statusCode): \(body)"]
+            )))
+        }
+        guard let data = data else {
+            return finish(.failure(NSError(
+                domain: "Spookreads",
+                code: 4,
+                userInfo: [NSLocalizedDescriptionKey: "empty body"]
+            )))
+        }
+        
+        do {
+            let decoded = try JSONDecoder().decode(
+                ChatResponse.self,
+                from: data
+            )
+            let text = decoded.choices.first?.message.content ?? ""
+            let cleaned = cleanAIJSON(text)
+            finish(.success(cleaned))
+        } catch {
+            let raw = String(data: data, encoding: .utf8) ?? "<non-utf8 body>"
+            finish(.failure(NSError(
+                domain: "Spookreads",
+                code: 5,
+                userInfo: [NSLocalizedDescriptionKey: "decode failed, raw:\n\(raw)"]
+            )))
+        }
+    }.resume()
 }
