@@ -94,7 +94,15 @@ func sendRequestToAI(
     }
     
     // send the stuffs to closedai
-    var req = URLRequest(url: URL(string: APIConfig.apiURLString)!)
+    guard let url = URL(string: APIConfig.apiURLString) else {
+        completion(.failure(NSError(
+            domain: "Spookreads",
+            code: 6,
+            userInfo: [NSLocalizedDescriptionKey: "invalid api url"]
+        )))
+        return
+    }
+    var req = URLRequest(url: url)
     req.httpMethod = "POST"
     req.setValue(
         "application/json",
