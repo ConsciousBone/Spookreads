@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Character: Identifiable {
     var name: String
@@ -14,6 +15,10 @@ struct Character: Identifiable {
 }
 
 struct StoryCreationView: View {
+    @Environment(\.modelContext) var modelContext
+    @State private var storyPath = [StoryItem]()
+    @Query(sort: \StoryItem.date, order: .reverse) var storyItems: [StoryItem
+    ]
     @State private var characters: [Character] = []
     
     @State private var showingAddAlert = false
