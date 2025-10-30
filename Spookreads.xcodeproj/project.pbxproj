@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		21F27B402EB3713000F48B60 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 21F27B3F2EB3712B00F48B60 /* .gitignore */; };
 		21F27B422EB3714000F48B60 /* proxysecret.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21F27B412EB3713B00F48B60 /* proxysecret.txt */; };
+		21F27B442EB371A200F48B60 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 21F27B432EB3719E00F48B60 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		219A194D2EB2E7B900365829 /* Spookreads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spookreads.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F27B3F2EB3712B00F48B60 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		21F27B412EB3713B00F48B60 /* proxysecret.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = proxysecret.txt; sourceTree = "<group>"; };
+		21F27B432EB3719E00F48B60 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -39,6 +41,7 @@
 		219A19442EB2E7B900365829 = {
 			isa = PBXGroup;
 			children = (
+				21F27B432EB3719E00F48B60 /* README.md */,
 				21F27B412EB3713B00F48B60 /* proxysecret.txt */,
 				21F27B3F2EB3712B00F48B60 /* .gitignore */,
 				219A194F2EB2E7B900365829 /* Spookreads */,
@@ -120,6 +123,7 @@
 			files = (
 				21F27B422EB3714000F48B60 /* proxysecret.txt in Resources */,
 				21F27B402EB3713000F48B60 /* .gitignore in Resources */,
+				21F27B442EB371A200F48B60 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
