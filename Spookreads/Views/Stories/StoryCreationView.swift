@@ -14,6 +14,12 @@ struct Character: Identifiable {
     var id = UUID()
 }
 
+struct Story: Decodable {
+    var storyName: String
+    var storyDescription: String
+    var storyContent: String
+}
+
 struct StoryCreationView: View {
     @Environment(\.modelContext) var modelContext
     @State private var storyPath = [StoryItem]()
@@ -97,8 +103,8 @@ struct StoryCreationView: View {
         "Strong leader.",
         "Easily spooked.",
         "Half shy, half assertive.", // inspector calls aah
-        "The man-about-town.", // also inspector calls aah
-        "Hard-headed business man.", // we're running out of ideas here
+        "The person-about-town.", // also inspector calls aah
+        "Hard-headed business person.", // we're running out of ideas here
         "All bark, no bite."
     ]
     
@@ -113,6 +119,81 @@ struct StoryCreationView: View {
             .trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         )
     }
+    
+    private var aiPromptNormal: String {
+        let charactersBlock: String
+        if characters.isEmpty {
+            charactersBlock = "No characters provided." // in case somehow the disabled doesnt work
+        } else {
+            charactersBlock = characters
+                .map {
+                    "- \($0.name): \($0.description)"
+                }
+                .joined(separator: "\n")
+        }
+        return """
+        You are generating a story based on the provided theme, environment, and characters.
+        
+        Theme: \(storyThemes[selectedStoryThemeIndex]).
+        Environment: \(storyEnvironments[selectedStoryEnvironmentIndex]).
+        
+        Characters:
+        \(charactersBlock)
+        
+        Respond ONLY with compact JSON in this EXACT format:
+        {"storyName":"", "storyDescription":"", "storyContent":""}
+        
+        JSON field rules:
+        - "storyName": a short title fitting for the story, 2 to 6 words.
+        - "storyDescription": 1 to 2 sentences describing the premise of the story.
+        - "storyContent": the full story text, around 2 to 4 paragraphs long.
+        
+        Rules for your response:
+        - No markdown. No code fences. No extra text.
+        - All fields should include just what is necessary. Nothing more.
+        - If the theme could be considered unsafe, creatively adapt it while keeping tone and context consistent.
+        - Be vivid and original.
+        """
+    }
+    
+    @State private var isLoading = false
+    
+    @State private var aiStoryName = ""
+    @State private var aiStoryDescription = ""
+    @State private var aiStoryContent = ""
+    @State private var errorText = ""
+    
+    private func decodeStory(from text: String) -> Story? {
+        let cleaned = cleanAIJSON(text)
+        guard let data = cleaned.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(Story.self, from: data)
+    }
+    
+    private func generateStory() {
+        isLoading = true
+        errorText = ""
+        aiStoryName = ""
+        aiStoryContent = ""
+        aiStoryDescription = ""
+        
+        if selectedStoryModeIndex == 0 {
+            sendRequestToAI(prompt: aiPromptNormal) { result in
+                isLoading = false
+                switch result {
+                case .success(let raw):
+                    if let aiStory = decodeStory(from: raw) {
+                        aiStoryName = aiStory.storyName
+                        aiStoryDescription = aiStory.storyDescription
+                        aiStoryContent = aiStory.storyContent
+                    }
+                case .failure(let err):
+                    errorText = err.localizedDescription
+                }
+            }
+        }
+    }
+    
+    @State private var testing = true
     
     var body: some View {
         NavigationStack {
@@ -211,10 +292,42 @@ struct StoryCreationView: View {
                 Section {
                     Button {
                         print("generating story")
+                        generateStory()
                     } label: {
-                        Label("Generate story", systemImage: "wand.and.sparkles")
+                        if isLoading {
+                            ProgressView()
+                        } else {
+                            Label("Generate story", systemImage: "wand.and.sparkles")
+                        }
                     }
                     .disabled(generateButtonDisabled)
+                }
+                
+                Section {
+                    Text(aiStoryName)
+                } header: {
+                    Text("Story name")
+                }
+                
+                Section {
+                    Text(aiStoryDescription)
+                } header: {
+                    Text("Story description")
+                }
+                
+                Section {
+                    Text(aiStoryContent)
+                } header: {
+                    Text("Story content")
+                }
+                
+                
+                if testing {
+                    Section {
+                        Text(aiPromptNormal)
+                    } header: {
+                        Text("aiPromptNormal")
+                    }
                 }
             }
         }
