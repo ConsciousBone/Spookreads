@@ -38,8 +38,14 @@ struct StoryCreationView: View {
         "Pumpkin", "Zombies",
         "Vampires", "Werewolves",
         "Witches", "Mystery",
-        "Nightmare", "Graveyard",
-        "Foggy night", "Trick or treat"
+        "Nightmare", "Trick or treat"
+    ]
+    
+    @State private var selectedStoryEnvironmentIndex = 0
+    let storyEnvironments = [
+        "Foggy night", "Graveyard",
+        "Abandoned street", "City center",
+        "Haunted house", "Party"
     ]
     
     @State private var preciseDescription = ""
@@ -100,6 +106,14 @@ struct StoryCreationView: View {
         characters.remove(atOffsets: offsets)
     }
     
+    var generateButtonDisabled: Bool {
+        characters.isEmpty ||
+        (
+            selectedStoryModeIndex == 1 && preciseDescription
+            .trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        )
+    }
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -157,7 +171,30 @@ struct StoryCreationView: View {
                 
                 if selectedStoryModeIndex == 0 {
                     Section { // normal, picker based
-                        Text("normal editing")
+                        Picker(selection: $selectedStoryThemeIndex) {
+                            ForEach(storyThemes.indices, id: \.self) { index in
+                                Text(storyThemes[index])
+                            }
+                        } label: {
+                            Label("Theme", systemImage: "paintpalette")
+                        }
+                        
+                        Picker(selection: $selectedStoryEnvironmentIndex) {
+                            ForEach(storyEnvironments.indices, id: \.self) { index in
+                                Text(storyEnvironments[index])
+                            }
+                        } label: {
+                            Label("Environment", systemImage: "mountain.2")
+                        }
+                        
+                        Button {
+                            withAnimation {
+                                selectedStoryThemeIndex = Int.random(in: 0..<storyThemes.count)
+                                selectedStoryEnvironmentIndex = Int.random(in: 0..<storyEnvironments.count)
+                            }
+                        } label: {
+                            Label("Randomise", systemImage: "shuffle")
+                        }
                     } header: {
                         Text("Story description")
                     }
@@ -169,6 +206,15 @@ struct StoryCreationView: View {
                     } header: {
                         Text("Story description")
                     }
+                }
+                
+                Section {
+                    Button {
+                        print("generating story")
+                    } label: {
+                        Label("Generate story", systemImage: "wand.and.sparkles")
+                    }
+                    .disabled(generateButtonDisabled)
                 }
             }
         }
