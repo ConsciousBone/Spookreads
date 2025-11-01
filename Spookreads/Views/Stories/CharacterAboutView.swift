@@ -36,7 +36,9 @@ struct CharacterAboutView: View {
             
             Section {
                 Button {
-                    print("edit")
+                    alertName = name
+                    alertDesc = description
+                    showingEditAlert.toggle()
                 } label: {
                     Label("Edit character", systemImage: "pencil")
                 }
