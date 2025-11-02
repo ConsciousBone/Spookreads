@@ -32,6 +32,8 @@ struct StoryDetailView: View {
                 Text(story.storyContent)
             }
         }
+        .navigationTitle(story.storyName)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
