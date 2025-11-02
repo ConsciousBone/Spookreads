@@ -51,10 +51,10 @@ struct StoriesView: View {
                         }
                     }
                 }
+                .navigationTitle("All stories")
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
-        .navigationTitle("All stories")
-        .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showingNewStorySheet) {
             StoryCreationView()
                 .presentationDetents([.medium, .large])
