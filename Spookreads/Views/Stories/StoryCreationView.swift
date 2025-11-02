@@ -21,6 +21,9 @@ struct Story: Decodable {
 }
 
 struct StoryCreationView: View {
+    @Environment(\.dismiss) var dismiss // dismiss sheet programatically, i would use
+                                        // presentationmode but its gonna be deprecated soon
+    
     @Environment(\.modelContext) var modelContext
     @State private var storyPath = [StoryItem]()
     @Query(sort: \StoryItem.date, order: .reverse) var storyItems: [StoryItem]
@@ -443,6 +446,15 @@ struct StoryCreationView: View {
                         Text(aiPromptRandom)
                     } header: {
                         Text("aiPromptRandom")
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Close", systemImage: "xmark")
                     }
                 }
             }

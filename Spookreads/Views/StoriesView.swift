@@ -14,6 +14,8 @@ struct StoriesView: View {
     @State private var storyPath = [StoryItem]()
     @Query(sort: \StoryItem.date, order: .reverse) var storyItems: [StoryItem]
     
+    @State private var showingNewStorySheet = false
+    
     var body: some View {
         NavigationStack {
             if storyItems.count == 0 {
@@ -24,6 +26,7 @@ struct StoriesView: View {
                 } actions: {
                     Button {
                         print("showing story popup")
+                        showingNewStorySheet.toggle()
                     } label: {
                         Label("New story", systemImage: "plus")
                     }
@@ -34,17 +37,22 @@ struct StoriesView: View {
                     ForEach(storyItems) { story in
                         Section {
                             NavigationLink {
-                                //StoryDetailView()
-                                Text("todo")
+                                StoryDetailView(story: story)
                             } label: {
-                                Text(story.storyName)
-                                Text(story.storyDescription)
-                                    .foregroundStyle(.secondary)
+                                VStack(alignment: .leading) {
+                                    Text(story.storyName)
+                                    Text(story.storyDescription)
+                                        .foregroundStyle(.secondary)
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+        .sheet(isPresented: $showingNewStorySheet) {
+            StoryCreationView()
+                .presentationDetents([.medium, .large])
         }
     }
 }

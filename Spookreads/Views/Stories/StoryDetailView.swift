@@ -8,26 +8,24 @@
 import SwiftUI
 
 struct StoryDetailView: View {
-    @Binding var storyName: String
-    @Binding var storyDescription: String
-    @Binding var storyContent: String
+    let story: StoryItem
     
     var body: some View {
         Form {
             Section {
-                Text(storyName)
+                Text(story.storyName)
             } header: {
                 Text("Story name")
             }
             
             Section {
-                Text(storyDescription)
+                Text(story.storyDescription)
             } header: {
                 Text("Story description")
             }
             
             Section {
-                Text(storyContent)
+                Text(story.storyContent)
             } header: {
                 Text("Story content")
             }
@@ -37,8 +35,10 @@ struct StoryDetailView: View {
 
 #Preview {
     StoryDetailView(
-        storyName: .constant("A story"),
-        storyDescription: .constant("A very good story, maybe the best story"),
-        storyContent: .constant("One day a man walked into a bar. Ouch.")
+        story: StoryItem(
+            storyName: "A story",
+            storyDescription: "Potentially the best story ever made, no one has a better story.",
+            storyContent: "One day a man, he was the greatest man, walked into a bar, and let me tell you something, the bar went ouch, it was not a very good bar; they need to build a wall not a bar"
+        )
     )
 }
