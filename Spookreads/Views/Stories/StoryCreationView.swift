@@ -120,10 +120,10 @@ struct StoryCreationView: View {
         )
     }
     
-    private var aiPromptNormal: String {
+    private func buildAIPrompt(intro: String) -> String {
         let charactersBlock: String
         if characters.isEmpty {
-            charactersBlock = "No characters provided." // in case somehow the disabled doesnt work
+            charactersBlock = "No characters provided."
         } else {
             charactersBlock = characters
                 .map {
@@ -131,11 +131,9 @@ struct StoryCreationView: View {
                 }
                 .joined(separator: "\n")
         }
-        return """
-        You are generating a story based on the provided theme, environment, and characters.
         
-        Theme: \(storyThemes[selectedStoryThemeIndex]).
-        Environment: \(storyEnvironments[selectedStoryEnvironmentIndex]).
+        return """
+        \(intro)
         
         Characters:
         \(charactersBlock)
@@ -154,6 +152,39 @@ struct StoryCreationView: View {
         - If the theme could be considered unsafe, creatively adapt it while keeping tone and context consistent.
         - Be vivid and original.
         """
+    }
+    
+    private var aiPromptNormal: String {
+        buildAIPrompt(intro:
+            """
+            You are generating a story based on the provided theme, environment, and characters.
+            
+            Theme: \(storyThemes[selectedStoryThemeIndex]).
+            Environment: \(storyEnvironments[selectedStoryEnvironmentIndex]).
+            """
+        )
+    }
+    
+    private var aiPromptPrecise: String {
+        buildAIPrompt(intro:
+            """
+            You are generating a story based on the provided description and characters.
+            
+            Description: \(preciseDescription)
+            """
+        )
+        
+    }
+    
+    private var aiPromptRandom: String {
+        buildAIPrompt(intro:
+            """
+            You are generating a story based on the provided theme, environment, and characters.
+            
+            Theme: \(storyThemes[selectedStoryThemeIndex]).
+            Environment: \(storyEnvironments[selectedStoryEnvironmentIndex]).
+            """
+        )
     }
     
     @State private var isLoading = false
