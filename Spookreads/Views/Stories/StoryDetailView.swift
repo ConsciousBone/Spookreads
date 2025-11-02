@@ -30,8 +30,6 @@ struct StoryDetailView: View {
             
             Section {
                 Text(story.storyContent)
-            } header: {
-                Text("Story content")
             }
         }
         .toolbar {

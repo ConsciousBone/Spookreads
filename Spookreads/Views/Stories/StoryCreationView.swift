@@ -420,12 +420,12 @@ struct StoryCreationView: View {
                     }
                 }
                 
-                Section {
-                    Toggle(isOn: $testing) {
-                        Label("Show debug info", systemImage: "ant")
-                    }
-                    .tint(.red)
-                }
+                //Section {
+                //    Toggle(isOn: $testing) {
+                //        Label("Show debug info", systemImage: "ant")
+                //    }
+                //    .tint(.red)
+                //}
                 
                 if testing {
                     Section {
