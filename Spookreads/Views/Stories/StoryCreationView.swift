@@ -413,6 +413,7 @@ struct StoryCreationView: View {
                             modelContext.insert(storyItem)
                             storyPath = [storyItem]
                             print("story saved")
+                            dismiss()
                         } label: {
                             Label("Save story", systemImage: "checkmark")
                         }
