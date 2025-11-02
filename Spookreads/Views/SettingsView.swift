@@ -43,6 +43,7 @@ struct SettingsView: View {
                 Toggle(isOn: $jumpscaresEnabled) {
                     Label("Jumpscares", systemImage: "theatermasks")
                 }
+                .tint(.red)
             } header: {
                 Text("Spooky season")
             } footer: {
