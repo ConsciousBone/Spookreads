@@ -13,6 +13,8 @@ struct HomeView: View {
     
     @State private var showingNewStorySheet = false
     
+    @AppStorage("jumpscaresEnabled") private var jumpscaresEnabled = false
+    
     var newestStory: StoryItem? {
         storyItems.first
     }
@@ -61,6 +63,15 @@ struct HomeView: View {
                 } header: {
                     Text("No stories")
                 }
+            }
+            
+            Section {
+                Toggle(isOn: $jumpscaresEnabled) {
+                    Label("Jumpscares", systemImage: "theatermasks")
+                }
+                .tint(.red)
+            } header: {
+                Text("It's spooky season!")
             }
         }
         .sheet(isPresented: $showingNewStorySheet) {
