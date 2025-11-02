@@ -193,7 +193,7 @@ struct StoryCreationView: View {
         }
     }
     
-    @State private var testing = true
+    @State private var testing = false
     
     var body: some View {
         NavigationStack {
@@ -303,25 +303,36 @@ struct StoryCreationView: View {
                     .disabled(generateButtonDisabled)
                 }
                 
-                Section {
-                    Text(aiStoryName)
-                } header: {
-                    Text("Story name")
+                if !aiStoryName.isEmpty {
+                    Section {
+                        Text(aiStoryName)
+                    } header: {
+                        Text("Story name")
+                    }
+                }
+                
+                if !aiStoryDescription.isEmpty {
+                    Section {
+                        Text(aiStoryDescription)
+                    } header: {
+                        Text("Story description")
+                    }
+                }
+                
+                if !aiStoryContent.isEmpty {
+                    Section {
+                        Text(aiStoryContent)
+                    } header: {
+                        Text("Story content")
+                    }
                 }
                 
                 Section {
-                    Text(aiStoryDescription)
-                } header: {
-                    Text("Story description")
+                    Toggle(isOn: $testing) {
+                        Label("Show debug info", systemImage: "ant")
+                    }
+                    .tint(.red)
                 }
-                
-                Section {
-                    Text(aiStoryContent)
-                } header: {
-                    Text("Story content")
-                }
-                
-                
                 if testing {
                     Section {
                         Text(aiPromptNormal)
