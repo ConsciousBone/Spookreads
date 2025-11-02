@@ -332,6 +332,10 @@ struct StoryCreationView: View {
                         }
                     }
                     .disabled(generateButtonDisabled)
+                    
+                    if !errorText.isEmpty { // error has done an error
+                        Text(errorText)
+                    }
                 }
                 
                 if !aiStoryName.isEmpty {
@@ -366,9 +370,26 @@ struct StoryCreationView: View {
                 }
                 if testing {
                     Section {
+                        Text("\(selectedStoryModeIndex)")
+                    } header: {
+                        Text("selectedStoryModeIndex")
+                    }
+                    Section {
                         Text(aiPromptNormal)
                     } header: {
                         Text("aiPromptNormal")
+                    }
+                    
+                    Section {
+                        Text(aiPromptPrecise)
+                    } header: {
+                        Text("aiPromptPrecise")
+                    }
+                    
+                    Section {
+                        Text(aiPromptRandom)
+                    } header: {
+                        Text("aiPromptRandom")
                     }
                 }
             }
