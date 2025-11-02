@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct StoryDetailView: View {
+    @State private var showingEditAlert = false
+    @State private var editStoryName = ""
+    @State private var editStoryDescription = ""
+    
     let story: StoryItem
     
     var body: some View {
@@ -29,6 +33,28 @@ struct StoryDetailView: View {
             } header: {
                 Text("Story content")
             }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    editStoryName = story.storyName
+                    editStoryDescription = story.storyDescription
+                    showingEditAlert.toggle()
+                } label: {
+                    Label("Edit", systemImage: "pencil")
+                }
+            }
+        }
+        .alert("Edit story details", isPresented: $showingEditAlert) {
+            TextField("Story name", text: $editStoryName)
+            TextField("Story description", text: $editStoryDescription)
+            Button("Save") {
+                withAnimation {
+                    story.storyName = editStoryName
+                    story.storyDescription = editStoryDescription
+                }
+            }
+            Button("Cancel", role: .cancel) {}
         }
     }
 }
