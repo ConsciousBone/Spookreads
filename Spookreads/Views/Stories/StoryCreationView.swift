@@ -176,7 +176,10 @@ struct StoryCreationView: View {
     }
     
     private var aiPromptRandom: String {
-        buildAIPrompt(intro:
+        selectedStoryThemeIndex = Int.random(in: 0..<storyThemes.count)
+        selectedStoryEnvironmentIndex = Int.random(in: 0..<storyEnvironments.count)
+        
+        return buildAIPrompt(intro:
             """
             You are generating a story based on the provided theme, environment, and characters.
             
@@ -206,8 +209,40 @@ struct StoryCreationView: View {
         aiStoryContent = ""
         aiStoryDescription = ""
         
-        if selectedStoryModeIndex == 0 {
+        if selectedStoryModeIndex == 0 { // normal
             sendRequestToAI(prompt: aiPromptNormal) { result in
+                isLoading = false
+                switch result {
+                case .success(let raw):
+                    if let aiStory = decodeStory(from: raw) {
+                        aiStoryName = aiStory.storyName
+                        aiStoryDescription = aiStory.storyDescription
+                        aiStoryContent = aiStory.storyContent
+                    }
+                case .failure(let err):
+                    errorText = err.localizedDescription
+                }
+            }
+        }
+        
+        if selectedStoryModeIndex == 1 { // precise
+            sendRequestToAI(prompt: aiPromptPrecise) { result in
+                isLoading = false
+                switch result {
+                case .success(let raw):
+                    if let aiStory = decodeStory(from: raw) {
+                        aiStoryName = aiStory.storyName
+                        aiStoryDescription = aiStory.storyDescription
+                        aiStoryContent = aiStory.storyContent
+                    }
+                case .failure(let err):
+                    errorText = err.localizedDescription
+                }
+            }
+        }
+        
+        if selectedStoryModeIndex == 2 { // random
+            sendRequestToAI(prompt: aiPromptRandom) { result in
                 isLoading = false
                 switch result {
                 case .success(let raw):
@@ -274,7 +309,7 @@ struct StoryCreationView: View {
                             Text(storyModes[index])
                         }
                     } label: {
-                        Label("Description modes", systemImage: "pencil")
+                        Label("Description mode", systemImage: "pencil")
                     }
                 } header: {
                     Text("Modes")
@@ -333,6 +368,7 @@ struct StoryCreationView: View {
                     .disabled(generateButtonDisabled)
                     
                     if !errorText.isEmpty { // error has done an error
+                        Text("An error has occured, please try again.")
                         Text(errorText)
                     }
                 }
@@ -361,6 +397,16 @@ struct StoryCreationView: View {
                     }
                 }
                 
+                if !aiStoryContent.isEmpty {
+                    Section {
+                        Button {
+                            print("saving story")
+                        } label: {
+                            Label("Save story", systemImage: "checkmark")
+                        }
+                    }
+                }
+                
                 Section {
                     Toggle(isOn: $testing) {
                         Label("Show debug info", systemImage: "ant")
@@ -374,6 +420,13 @@ struct StoryCreationView: View {
                     } header: {
                         Text("selectedStoryModeIndex")
                     }
+                    
+                    Section {
+                        Text(verbatim: "\(characters)")
+                    } header: {
+                        Text("characters")
+                    }
+                    
                     Section {
                         Text(aiPromptNormal)
                     } header: {
