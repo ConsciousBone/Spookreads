@@ -173,7 +173,6 @@ struct StoryCreationView: View {
             Description: \(preciseDescription)
             """
         )
-        
     }
     
     private var aiPromptRandom: String {
@@ -368,6 +367,7 @@ struct StoryCreationView: View {
                     }
                     .tint(.red)
                 }
+                
                 if testing {
                     Section {
                         Text("\(selectedStoryModeIndex)")
