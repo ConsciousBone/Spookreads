@@ -19,6 +19,10 @@ struct HomeView: View {
         storyItems.first
     }
     
+    var randomStory: StoryItem? {
+        storyItems.randomElement()
+    }
+    
     var greeting: String {
         let hour = Calendar.current.component(.hour, from: Date())
         
@@ -33,50 +37,74 @@ struct HomeView: View {
     }
     
     var body: some View {
-        Form {
-            Section {
-                Text(greeting)
-                    .font(.title)
-            }
-            
-            if let story = newestStory {
+        NavigationStack {
+            Form {
                 Section {
-                    NavigationLink {
-                        StoryDetailView(story: story)
-                    } label: {
-                        VStack(alignment: .leading) {
-                            Text(story.storyName)
-                            Text(story.storyDescription)
-                                .foregroundStyle(.secondary)
+                    Text(greeting)
+                        .font(.title)
+                }
+                
+                if let story = newestStory {
+                    Section {
+                        NavigationLink {
+                            StoryDetailView(story: story)
+                        } label: {
+                            VStack(alignment: .leading) {
+                                Text(story.storyName)
+                                    .multilineTextAlignment(.leading)
+                                Text(story.storyDescription)
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(2)
+                                    .foregroundStyle(.secondary)
+                            }
                         }
+                    } header: {
+                        Text("Newest story")
                     }
-                } header: {
-                    Text("Newest story")
+                } else {
+                    Section {
+                        Button {
+                            showingNewStorySheet.toggle()
+                        } label: {
+                            Label("Try generating a story!", systemImage: "pencil")
+                        }
+                    } header: {
+                        Text("No stories")
+                    }
                 }
-            } else {
+                
+                if let story = randomStory {
+                    Section {
+                        NavigationLink {
+                            StoryDetailView(story: story)
+                        } label: {
+                            VStack(alignment: .leading) {
+                                Text(story.storyName)
+                                    .multilineTextAlignment(.leading)
+                                Text(story.storyDescription)
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(2)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    } header: {
+                        Text("Random story")
+                    }
+                }
+                
                 Section {
-                    Button {
-                        showingNewStorySheet.toggle()
-                    } label: {
-                        Label("Try generating a story!", systemImage: "pencil")
+                    Toggle(isOn: $jumpscaresEnabled) {
+                        Label("Jumpscares", systemImage: "theatermasks")
                     }
+                    .tint(.red)
                 } header: {
-                    Text("No stories")
+                    Text("It's spooky season!")
                 }
             }
-            
-            Section {
-                Toggle(isOn: $jumpscaresEnabled) {
-                    Label("Jumpscares", systemImage: "theatermasks")
-                }
-                .tint(.red)
-            } header: {
-                Text("It's spooky season!")
+            .sheet(isPresented: $showingNewStorySheet) {
+                StoryCreationView()
+                    .presentationDetents([.medium, .large])
             }
-        }
-        .sheet(isPresented: $showingNewStorySheet) {
-            StoryCreationView()
-                .presentationDetents([.medium, .large])
         }
     }
 }

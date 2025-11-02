@@ -8,6 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 1
+    let accentColours = [
+        Color.red.gradient, Color.orange.gradient,
+        Color.yellow.gradient, Color.green.gradient,
+        Color.mint.gradient, Color.blue.gradient,
+        Color.purple.gradient, Color.brown.gradient,
+        Color.white.gradient, Color.black.gradient
+    ]
+    
     @AppStorage("jumpscaresEnabled") private var jumpscaresEnabled = false
     @State private var showingJumpscare = false
     @State private var jumpscareTaskUUID = UUID()
@@ -63,6 +72,7 @@ struct ContentView: View {
                 showingJumpscare = false
             }
         }
+        .tint(accentColours[selectedAccentIndex])
     }
 }
 

@@ -41,7 +41,10 @@ struct StoriesView: View {
                             } label: {
                                 VStack(alignment: .leading) {
                                     Text(story.storyName)
+                                        .multilineTextAlignment(.leading)
                                     Text(story.storyDescription)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(2)
                                         .foregroundStyle(.secondary)
                                 }
                             }
