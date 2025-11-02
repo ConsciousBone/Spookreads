@@ -50,6 +50,13 @@ struct StoriesView: View {
                             }
                         }
                     }
+                    .onDelete { indexSet in
+                        withAnimation {
+                            indexSet
+                                .map{storyItems[$0]}
+                                .forEach(modelContext.delete)
+                        }
+                    }
                 }
                 .navigationTitle("All stories")
                 .navigationBarTitleDisplayMode(.inline)
