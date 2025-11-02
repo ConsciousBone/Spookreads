@@ -404,6 +404,15 @@ struct StoryCreationView: View {
                     Section {
                         Button {
                             print("saving story")
+                            let storyItem = StoryItem(
+                                storyName: aiStoryName,
+                                storyDescription: aiStoryDescription,
+                                storyContent: aiStoryContent,
+                                date: .now
+                            )
+                            modelContext.insert(storyItem)
+                            storyPath = [storyItem]
+                            print("story saved")
                         } label: {
                             Label("Save story", systemImage: "checkmark")
                         }
