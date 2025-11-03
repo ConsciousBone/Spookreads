@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct SettingsView: View {
+    // version stuff, ty searchino!
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+    
     @AppStorage("jumpscaresEnabled") private var jumpscaresEnabled = false
     
     // accent
@@ -48,6 +52,13 @@ struct SettingsView: View {
                 Text("Spooky season")
             } footer: {
                 Text("This causes a slightly spooky image to appear on the screen for 1 second every 15 to 45 seconds.")
+            }
+            
+            Section {
+                Text("Version \(appVersion)")
+                Text("Build \(buildNumber)")
+            } header: {
+                Text("Spookreads information")
             }
         }
     }
