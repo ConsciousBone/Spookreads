@@ -8,9 +8,13 @@ If the API requests fail for some reason, you are actually connected to the inte
 
 # Demos
 ## Screenshots
-TODO: put the stuff in the stuff
+<img src="/Screenshots/1.png" width=128> <img src="/Screenshots/2.png" width=128> <img src="/Screenshots/3.png" width=128>
+<img src="/Screenshots/4.png" width=128> <img src="/Screenshots/5.png" width=128> <img src="/Screenshots/6.png" width=128>
+<img src="/Screenshots/7.png" width=128> <img src="/Screenshots/8.png" width=128> <img src="/Screenshots/9.png" width=128>
+<img src="/Screenshots/10.png" width=128> <img src="/Screenshots/11.png" width=128> <img src="/Screenshots/12.png" width=128>
+<img src="/Screenshots/13.png" width=128>
 ## Video
-[YouTube link (unlisted)](https://example.com)
+[YouTube link (unlisted)](https://youtu.be/rsNRq54jlAo)
 
 # Backend (proxy server)
 The backend to this is powered by Nginx, and is the same backend as Leafy, my Siege Week 8 project that logs and identifies leaves found by the user. It's still all hosted locally at my house and running on Ubuntu Desktop 25.04 inside of Proxmox!  
