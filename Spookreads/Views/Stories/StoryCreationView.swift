@@ -147,7 +147,7 @@ struct StoryCreationView: View {
         JSON field rules:
         - "storyName": a short title fitting for the story, 2 to 6 words.
         - "storyDescription": 1 to 2 sentences describing the premise of the story.
-        - "storyContent": the full story text, around 2 to 4 paragraphs long.
+        - "storyContent": the full story text, around 3 to 6 paragraphs long.
         
         Rules for your response:
         - No markdown. No code fences. No extra text.
