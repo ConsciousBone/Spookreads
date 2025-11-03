@@ -29,7 +29,13 @@ struct StoryDetailView: View {
             }
             
             Section {
+                Text(story.date.formatted(date: .long, time: .shortened))
+            }
+            
+            Section {
                 Text(story.storyContent)
+            } header: {
+                Text("Creation date")
             }
         }
         .navigationTitle(story.storyName)
