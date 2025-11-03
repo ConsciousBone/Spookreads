@@ -9,6 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
+    // version stuff, ty searchino!
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+    
     @Query(sort: \StoryItem.date, order: .reverse) var storyItems: [StoryItem]
     
     @State private var showingNewStorySheet = false
@@ -42,9 +46,19 @@ struct HomeView: View {
                 Section {
                     Text(greeting)
                         .font(.title)
+                } header: {
+                    Text("Spookreads - version \(appVersion) build \(buildNumber)")
                 }
                 
                 if let story = newestStory {
+                    Section {
+                        Button {
+                            showingNewStorySheet.toggle()
+                        } label: {
+                            Label("New story", systemImage: "pencil")
+                        }
+                    }
+                    
                     Section {
                         NavigationLink {
                             StoryDetailView(story: story)
