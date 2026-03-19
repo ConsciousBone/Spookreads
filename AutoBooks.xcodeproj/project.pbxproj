@@ -13,16 +13,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		219A194D2EB2E7B900365829 /* Spookreads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spookreads.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		219A194D2EB2E7B900365829 /* AutoBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F27B3F2EB3712B00F48B60 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		21F27B412EB3713B00F48B60 /* proxysecret.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = proxysecret.txt; sourceTree = "<group>"; };
 		21F27B432EB3719E00F48B60 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		219A194F2EB2E7B900365829 /* Spookreads */ = {
+		219A194F2EB2E7B900365829 /* AutoBooks */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Spookreads;
+			path = AutoBooks;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -44,7 +44,7 @@
 				21F27B432EB3719E00F48B60 /* README.md */,
 				21F27B412EB3713B00F48B60 /* proxysecret.txt */,
 				21F27B3F2EB3712B00F48B60 /* .gitignore */,
-				219A194F2EB2E7B900365829 /* Spookreads */,
+				219A194F2EB2E7B900365829 /* AutoBooks */,
 				219A194E2EB2E7B900365829 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,7 +52,7 @@
 		219A194E2EB2E7B900365829 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				219A194D2EB2E7B900365829 /* Spookreads.app */,
+				219A194D2EB2E7B900365829 /* AutoBooks.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,9 +60,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		219A194C2EB2E7B900365829 /* Spookreads */ = {
+		219A194C2EB2E7B900365829 /* AutoBooks */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 219A19582EB2E7BA00365829 /* Build configuration list for PBXNativeTarget "Spookreads" */;
+			buildConfigurationList = 219A19582EB2E7BA00365829 /* Build configuration list for PBXNativeTarget "AutoBooks" */;
 			buildPhases = (
 				219A19492EB2E7B900365829 /* Sources */,
 				219A194A2EB2E7B900365829 /* Frameworks */,
@@ -73,13 +73,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				219A194F2EB2E7B900365829 /* Spookreads */,
+				219A194F2EB2E7B900365829 /* AutoBooks */,
 			);
-			name = Spookreads;
+			name = AutoBooks;
 			packageProductDependencies = (
 			);
 			productName = Spookreads;
-			productReference = 219A194D2EB2E7B900365829 /* Spookreads.app */;
+			productReference = 219A194D2EB2E7B900365829 /* AutoBooks.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -97,7 +97,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 219A19482EB2E7B900365829 /* Build configuration list for PBXProject "Spookreads" */;
+			buildConfigurationList = 219A19482EB2E7B900365829 /* Build configuration list for PBXProject "AutoBooks" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -111,7 +111,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				219A194C2EB2E7B900365829 /* Spookreads */,
+				219A194C2EB2E7B900365829 /* AutoBooks */,
 			);
 		};
 /* End PBXProject section */
@@ -271,7 +271,7 @@
 				DEVELOPMENT_TEAM = 55AQGQMC7S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Spookreads;
+				INFOPLIST_KEY_CFBundleDisplayName = AutoBooks;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -284,7 +284,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kmorley.Spookreads;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kmorley.AutoBooks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -306,7 +306,7 @@
 				DEVELOPMENT_TEAM = 55AQGQMC7S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Spookreads;
+				INFOPLIST_KEY_CFBundleDisplayName = AutoBooks;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -319,7 +319,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kmorley.Spookreads;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kmorley.AutoBooks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -334,7 +334,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		219A19482EB2E7B900365829 /* Build configuration list for PBXProject "Spookreads" */ = {
+		219A19482EB2E7B900365829 /* Build configuration list for PBXProject "AutoBooks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				219A19562EB2E7BA00365829 /* Debug */,
@@ -343,7 +343,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		219A19582EB2E7BA00365829 /* Build configuration list for PBXNativeTarget "Spookreads" */ = {
+		219A19582EB2E7BA00365829 /* Build configuration list for PBXNativeTarget "AutoBooks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				219A19592EB2E7BA00365829 /* Debug */,
