@@ -95,6 +95,18 @@ struct AboutView: View {
                     Label("Open GitHub repository", systemImage: "terminal")
                 }
             }
+            
+            Section {
+                Text("Found a bug? Have a feature request? Contact me!")
+                
+                Button {
+                    print("email")
+                    openURL(URL(string: "mailto:apps@consciousb.one")!)
+                } label: {
+                    Label("Send an email", systemImage: "envelope")
+                }
+                
+            }
         }
     }
 }
