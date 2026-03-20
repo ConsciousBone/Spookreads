@@ -80,6 +80,21 @@ struct AboutView: View {
                     Label("Learn more about Flavortown", systemImage: "fork.knife")
                 }
             }
+            
+            Section {
+                Text("This app is fully open source! You can see its source code on GitHub.")
+                
+                Button {
+                    print("github")
+                    if #available(iOS 26.0, *) {
+                        openURL(URL(string: "https://github.com/ConsciousBone/AutoBooks")!, prefersInApp: true)
+                    } else {
+                        openURL(URL(string: "https://github.com/ConsciousBone/AutoBooks")!)
+                    }
+                } label: {
+                    Label("Open GitHub repository", systemImage: "terminal")
+                }
+            }
         }
     }
 }
