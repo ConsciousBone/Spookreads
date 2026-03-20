@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 1
+    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 5
     let accentColours = [
         Color.red.gradient, Color.orange.gradient,
         Color.yellow.gradient, Color.green.gradient,
@@ -48,7 +48,7 @@ struct ContentView: View {
                 Tab("Home", systemImage: "house") {
                     HomeView()
                 }
-                Tab("Stories", systemImage: "book") {
+                Tab("Books", systemImage: "book") {
                     StoriesView()
                 }
                 Tab("Settings", systemImage: "gear") {

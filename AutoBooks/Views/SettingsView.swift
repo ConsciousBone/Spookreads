@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    let displayName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AutoBooks"
     // version stuff, ty searchino!
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
     let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
@@ -15,7 +16,7 @@ struct SettingsView: View {
     @AppStorage("jumpscaresEnabled") private var jumpscaresEnabled = false
     
     // accent
-    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 1 // orange
+    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 5 // blue
     let accentColours = [
         Color.red.gradient, Color.orange.gradient,
         Color.yellow.gradient, Color.green.gradient,
@@ -32,33 +33,36 @@ struct SettingsView: View {
     ]
     
     var body: some View {
-        Form {
-            Section {
-                Picker(selection: $selectedAccentIndex) {
-                    ForEach(accentColours.indices, id: \.self) { index in
-                        Text(accentColourNames[index])
+        NavigationView {
+            Form {
+                Section {
+                    Picker(selection: $selectedAccentIndex) {
+                        ForEach(accentColours.indices, id: \.self) { index in
+                            Text(accentColourNames[index])
+                        }
+                    } label: {
+                        Label("Accent Colour", systemImage: "paintpalette")
                     }
-                } label: {
-                    Label("Accent Colour", systemImage: "paintpalette")
                 }
-            }
-            
-            Section {
-                Toggle(isOn: $jumpscaresEnabled) {
-                    Label("Jumpscares", systemImage: "theatermasks")
+                
+                Section {
+                    Toggle(isOn: $jumpscaresEnabled) {
+                        Label("Jumpscares", systemImage: "theatermasks")
+                    }
+                    .tint(.red)
+                } header: {
+                    Text("Spooky season")
+                } footer: {
+                    Text("This causes a slightly spooky image to appear on the screen for 1 second every 15 to 45 seconds.")
                 }
-                .tint(.red)
-            } header: {
-                Text("Spooky season")
-            } footer: {
-                Text("This causes a slightly spooky image to appear on the screen for 1 second every 15 to 45 seconds.")
-            }
-            
-            Section {
-                Text("Version \(appVersion)")
-                Text("Build \(buildNumber)")
-            } header: {
-                Text("Spookreads information")
+                
+                Section {
+                    NavigationLink {
+                        AboutView()
+                    } label: {
+                        Label("About \(displayName)", systemImage: "info")
+                    }
+                }
             }
         }
     }

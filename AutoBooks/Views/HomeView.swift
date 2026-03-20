@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
+    let displayName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AutoBooks"
     // version stuff, ty searchino!
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
     let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
@@ -47,7 +48,7 @@ struct HomeView: View {
                     Text(greeting)
                         .font(.title)
                 } header: {
-                    Text("Spookreads - version \(appVersion) build \(buildNumber)")
+                    Text("\(displayName) - version \(appVersion) build \(buildNumber)")
                 }
                 
                 if let story = newestStory {
@@ -55,7 +56,7 @@ struct HomeView: View {
                         Button {
                             showingNewStorySheet.toggle()
                         } label: {
-                            Label("New story", systemImage: "pencil")
+                            Label("New book", systemImage: "pencil")
                         }
                     }
                     
@@ -73,17 +74,17 @@ struct HomeView: View {
                             }
                         }
                     } header: {
-                        Text("Newest story")
+                        Text("Newest book")
                     }
                 } else {
                     Section {
                         Button {
                             showingNewStorySheet.toggle()
                         } label: {
-                            Label("Try generating a story!", systemImage: "pencil")
+                            Label("Try generating a book!", systemImage: "pencil")
                         }
                     } header: {
-                        Text("No stories")
+                        Text("No books")
                     }
                 }
                 
