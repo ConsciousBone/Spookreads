@@ -13,6 +13,8 @@ struct AboutView: View {
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
     let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
     
+    @Environment(\.openURL) var openURL
+    
     var body: some View {
         List {
             Section { // app icon + version/build text
@@ -40,8 +42,44 @@ struct AboutView: View {
                     Spacer()
                 }
             }
-            
+             
             // TODO: add sections crediting HC's Siege and Flavortown + links, this app's GH repo, and contact
+            Section {
+                Text("Originally developed for Hack Club's Siege, following a theme of \"spooky\", and updated for Hack Club's Flavortown!")
+                
+                Button {
+                    print("hackclub")
+                    if #available(iOS 26.0, *) {
+                        openURL(URL(string: "https://hackclub.com/")!, prefersInApp: true)
+                    } else {
+                        openURL(URL(string: "https://hackclub.com/")!)
+                    }
+                } label: {
+                    Label("Learn more about Hack Club", systemImage: "terminal")
+                }
+                
+                Button {
+                    print("siege")
+                    if #available(iOS 26.0, *) {
+                        openURL(URL(string: "https://siege.hackclub.com/")!, prefersInApp: true)
+                    } else {
+                        openURL(URL(string: "https://siege.hackclub.com/")!)
+                    }
+                } label: {
+                    Label("Learn more about Siege", systemImage: "crown")
+                }
+                
+                Button {
+                    print("flavortown")
+                    if #available(iOS 26.0, *) {
+                        openURL(URL(string: "https://flavortown.hackclub.com/")!, prefersInApp: true)
+                    } else {
+                        openURL(URL(string: "https://flavortown.hackclub.com/")!)
+                    }
+                } label: {
+                    Label("Learn more about Flavortown", systemImage: "fork.knife")
+                }
+            }
         }
     }
 }
