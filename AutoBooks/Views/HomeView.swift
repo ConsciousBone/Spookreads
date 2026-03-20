@@ -103,7 +103,7 @@ struct HomeView: View {
                             }
                         }
                     } header: {
-                        Text("Random story")
+                        Text("Random book")
                     }
                 }
                 
