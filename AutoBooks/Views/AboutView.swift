@@ -15,6 +15,8 @@ struct AboutView: View {
     
     @Environment(\.openURL) var openURL
     
+    @AppStorage("showTesting") private var showTesting = false
+    
     var body: some View {
         List {
             Section { // app icon + version/build text
@@ -105,7 +107,15 @@ struct AboutView: View {
                 } label: {
                     Label("Send an email", systemImage: "envelope")
                 }
-                
+            }
+            
+            Section {
+                Toggle(isOn: $showTesting) {
+                    Label("Show debug tools", systemImage: "ant")
+                }
+                .tint(.red)
+            } footer: {
+                Text("You should typically keep this off, but if you need to debug anything or you're curious how the app works, turn it on!")
             }
         }
     }

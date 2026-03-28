@@ -21,7 +21,7 @@ struct Story: Decodable {
 }
 
 struct StoryCreationView: View {
-    let showTesting = true
+    @AppStorage("showTesting") private var showTesting = false
     @State private var demoAIPrompt = ""
     
     @Environment(\.dismiss) var dismiss // dismiss sheet programatically, i would use
