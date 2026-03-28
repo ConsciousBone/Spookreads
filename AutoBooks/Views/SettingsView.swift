@@ -13,8 +13,6 @@ struct SettingsView: View {
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
     let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
     
-    @AppStorage("jumpscaresEnabled") private var jumpscaresEnabled = false
-    
     // accent
     @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 5 // blue
     let accentColours = [
@@ -46,14 +44,13 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    Toggle(isOn: $jumpscaresEnabled) {
-                        Label("Jumpscares", systemImage: "theatermasks")
+                    NavigationLink {
+                        LegacySettingsView()
+                    } label: {
+                        Label("Legacy", systemImage: "hourglass")
                     }
-                    .tint(.red)
-                } header: {
-                    Text("Spooky season")
                 } footer: {
-                    Text("This causes a slightly spooky image to appear on the screen for 1 second every 15 to 45 seconds.")
+                    Text("Settings that were introduced in Spookreads and may be removed at any time.")
                 }
                 
                 Section {
@@ -64,6 +61,7 @@ struct SettingsView: View {
                     }
                 }
             }
+            .navigationTitle("Settings")
         }
     }
 }

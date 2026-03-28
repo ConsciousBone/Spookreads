@@ -107,16 +107,16 @@ struct HomeView: View {
                     }
                 }
                 
-                Section {
-                    Toggle(isOn: $jumpscaresEnabled) {
-                        Label("Jumpscares", systemImage: "theatermasks")
-                    }
-                    .tint(.red)
-                } header: {
-                    Text("It's spooky season!")
-                } footer: {
-                    Text("This causes a slightly spooky image to appear on the screen for 1 second every 15 to 45 seconds.")
-                }
+                //Section {
+                //    Toggle(isOn: $jumpscaresEnabled) {
+                //        Label("Jumpscares", systemImage: "theatermasks")
+                //    }
+                //    .tint(.red)
+                //} header: {
+                //    Text("It's spooky season!")
+                //} footer: {
+                //    Text("This causes a slightly spooky image to appear on the screen for 1 second every 15 to 45 seconds.")
+                //}
             }
             .sheet(isPresented: $showingNewStorySheet) {
                 StoryCreationView()

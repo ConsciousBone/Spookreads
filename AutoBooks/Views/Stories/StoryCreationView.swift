@@ -108,7 +108,10 @@ struct StoryCreationView: View {
         "Half shy, half assertive.", // inspector calls aah
         "The person-about-town.", // also inspector calls aah
         "Hard-headed business person.", // we're running out of ideas here
-        "All bark, no bite."
+        "All bark, no bite.",
+        "The most intelligent in the group.",
+        "Has no common sense.",
+        "Friendly but useless."
     ]
     
     func deleteCharacter(at offsets: IndexSet) {
