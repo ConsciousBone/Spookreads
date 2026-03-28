@@ -21,12 +21,18 @@ struct Story: Decodable {
 }
 
 struct StoryCreationView: View {
+    let showTesting = true
+    @State private var demoAIPrompt = ""
+    
     @Environment(\.dismiss) var dismiss // dismiss sheet programatically, i would use
                                         // presentationmode but its gonna be deprecated soon
     
     @Environment(\.modelContext) var modelContext
     @State private var storyPath = [StoryItem]()
     @Query(sort: \StoryItem.date, order: .reverse) var storyItems: [StoryItem]
+    
+    @AppStorage("showLegacyStoryThemes") private var showLegacyStoryThemes = false
+    @AppStorage("showLegacyStoryEnvironments") private var showLegacyStoryEnvironments = false
     
     @State private var characters: [Character] = []
     
@@ -41,21 +47,67 @@ struct StoryCreationView: View {
     ]
     
     @State private var selectedStoryThemeIndex = 0
-    let storyThemes = [
-        "Halloween", "Scary",
-        "Ghosts", "Candy",
-        "Pumpkin", "Zombies",
-        "Vampires", "Werewolves",
-        "Witches", "Mystery",
-        "Nightmare", "Trick or treat"
-    ]
+    // got some from these sources:
+    // https://www.scribophile.com/academy/common-themes-in-literature
+    // https://www.reddit.com/r/writing/comments/14rdkxu/what_are_some_themes_that_often_come_up_in_your/
+    var storyThemes: [String] {
+        if showLegacyStoryThemes {
+            // theres 100% a better way, but i cannot be bothered finding it rn
+            // and this works perfectly fine
+            return [
+                "Exploration", "Forbidden romance",
+                "Coming of age", "Corruption",
+                "The American dream", "The circle of life",
+                "Family dynamics", "Faith",
+                "Self-identity", "Isolation",
+                "Survival", "Murder mystery",
+                "Redemption", "Grief",
+                "Gender and sexuality", "Power",
+                "Authority", "Doomsday",
+                "Violence", "Good vs evil",
+                // legacy
+                "Halloween", "Scary",
+                "Ghosts", "Candy",
+                "Pumpkin", "Zombies",
+                "Vampires", "Werewolves",
+                "Witches", "Mystery",
+                "Nightmare", "Trick or treat"
+            ]
+        } else {
+            return [
+                "Good vs evil", "Forbidden romance",
+                "Coming of age", "Corruption",
+                "The American dream", "The circle of life",
+                "Family dynamics", "Faith",
+                "Self-identity", "Isolation",
+                "Survival", "Murder mystery",
+                "Redemption", "Grief",
+                "Gender and sexuality", "Power",
+                "Authority", "Doomsday",
+                "Violence", "Exploration"
+            ]
+        }
+    }
     
     @State private var selectedStoryEnvironmentIndex = 0
-    let storyEnvironments = [
-        "Foggy night", "Graveyard",
-        "Abandoned street", "City center",
-        "Haunted house", "Party"
-    ]
+    var storyEnvironments: [String] {
+        if showLegacyStoryEnvironments {
+            return [
+                "City center", "Party",
+                "Shopping mall", "Empty field",
+                "Dense forest", "Rainy streets",
+                // legacy
+                "Foggy night", "Graveyard",
+                "Abandoned street", "Haunted house"
+            ]
+        } else {
+            return [
+                "City center", "Party",
+                "Shopping mall", "Empty field",
+                "Dense forest", "Rainy streets"
+            ]
+        }
+    }
     
     @State private var preciseDescription = ""
     
@@ -423,12 +475,14 @@ struct StoryCreationView: View {
                     }
                 }
                 
-                //Section {
-                //    Toggle(isOn: $testing) {
-                //        Label("Show debug info", systemImage: "ant")
-                //    }
-                //    .tint(.red)
-                //}
+                if showTesting {
+                    Section {
+                        Toggle(isOn: $testing) {
+                            Label("Show debug info", systemImage: "ant")
+                        }
+                        .tint(.red)
+                    }
+                }
                 
                 if testing {
                     Section {
@@ -441,6 +495,52 @@ struct StoryCreationView: View {
                         Text(verbatim: "\(characters)")
                     } header: {
                         Text("characters")
+                    }
+                    
+                    Section {
+                        Button {
+                            demoAIPrompt = buildAIPrompt(intro:
+                                """
+                                You are generating a story based on the provided theme, environment, and characters.
+                                
+                                Theme: \(storyThemes[selectedStoryThemeIndex]).
+                                Environment: \(storyEnvironments[selectedStoryEnvironmentIndex]).
+                                """
+                            )
+                        } label: {
+                            Text("buildAIPrompt normal")
+                        }
+                        Button {
+                            demoAIPrompt = buildAIPrompt(intro:
+                                """
+                                You are generating a story based on the provided description and characters.
+                                
+                                Description: \(preciseDescription)
+                                """
+                            )
+                        } label: {
+                            Text("buildAIPrompt precise")
+                        }
+                        Button {
+                            selectedStoryThemeIndex = Int.random(in: 0..<storyThemes.count)
+                            selectedStoryEnvironmentIndex = Int.random(in: 0..<storyEnvironments.count)
+                            demoAIPrompt = buildAIPrompt(intro:
+                                """
+                                You are generating a story based on the provided theme, environment, and characters.
+                                
+                                Theme: \(storyThemes[selectedStoryThemeIndex]).
+                                Environment: \(storyEnvironments[selectedStoryEnvironmentIndex]).
+                                """
+                            )
+                        } label: {
+                            Text("buildAIPrompt random")
+                        }
+                    }
+                    
+                    Section {
+                        Text(demoAIPrompt)
+                    } header: {
+                        Text("demoAIPrompt")
                     }
                     
                     Section {
