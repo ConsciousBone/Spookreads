@@ -58,7 +58,7 @@ struct StoriesView: View {
                         }
                     }
                 }
-                .navigationTitle("All stories")
+                .navigationTitle("All books")
                 .navigationBarTitleDisplayMode(.inline)
             }
         }

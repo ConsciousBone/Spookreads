@@ -50,7 +50,7 @@ struct SettingsView: View {
                         Label("Legacy", systemImage: "hourglass")
                     }
                 } footer: {
-                    Text("Settings that were introduced in Spookreads and may be removed at any time.")
+                    Text("These are settings that were introduced in Spookreads and may be removed at any time.")
                 }
                 
                 Section {

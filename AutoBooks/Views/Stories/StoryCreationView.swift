@@ -111,6 +111,13 @@ struct StoryCreationView: View {
         }
     }
     
+    @State private var selectedStoryLengthIndex = 2 // regular
+    let storyLengths = [
+        "Extra short", "Short",
+        "Regular", "Long",
+        "Extra long"
+    ]
+    
     @State private var preciseDescription = ""
     
     func submit(name: String, desc: String, pronouns: String) {
@@ -200,6 +207,23 @@ struct StoryCreationView: View {
                 .joined(separator: "\n")
         }
         
+        let storyLengthBlock: String
+        // this is probably an awful way to do this,
+        // but its easy so eh whatever
+        if selectedStoryLengthIndex == 0 { // extra short
+            storyLengthBlock = "around 1 to 2 paragraphs long."
+        } else if selectedStoryLengthIndex == 1 { // short
+            storyLengthBlock = "around 3 to 4 paragraphs long."
+        } else if selectedStoryLengthIndex == 2 { // regular
+            storyLengthBlock = "around 4 to 5 paragraphs long."
+        } else if selectedStoryLengthIndex == 3 { // long
+            storyLengthBlock = "around 5 to 6 paragraphs long."
+        } else if selectedStoryLengthIndex == 4 { // extra long
+            storyLengthBlock = "around 6 to 7 paragraphs long."
+        } else { // fall back to regular
+            storyLengthBlock = "around 4 to 5 paragraphs long."
+        }
+        
         return """
         \(intro)
         
@@ -212,7 +236,7 @@ struct StoryCreationView: View {
         JSON field rules:
         - "storyName": a short title fitting for the story, 2 to 6 words.
         - "storyDescription": 1 to 2 sentences describing the premise of the story.
-        - "storyContent": the full story text, around 3 to 6 paragraphs long.
+        - "storyContent": the full story text, \(storyLengthBlock)
         
         Rules for your response:
         - No markdown. No code fences. No extra text.
@@ -414,16 +438,27 @@ struct StoryCreationView: View {
                             Label("Randomise", systemImage: "shuffle")
                         }
                     } header: {
-                        Text("Story description")
+                        Text("Description")
                     }
                 }
                 
                 if selectedStoryModeIndex == 1 {
                     Section { // precise, text based
-                        TextField("Story description", text: $preciseDescription)
+                        TextField("Description", text: $preciseDescription)
                     } header: {
-                        Text("Story description")
+                        Text("Description")
                     }
+                }
+                
+                Section {
+                    Picker(selection: $selectedStoryLengthIndex) {
+                        ForEach(storyLengths.indices, id: \.self) { i in
+                            Text(storyLengths[i])
+                        }
+                    } label: {
+                        Label("Length", systemImage: "clock")
+                    }
+
                 }
                 
                 Section {
@@ -503,6 +538,12 @@ struct StoryCreationView: View {
                         Text("\(selectedStoryModeIndex)")
                     } header: {
                         Text("selectedStoryModeIndex")
+                    }
+                    
+                    Section {
+                        Text("\(selectedStoryLengthIndex)")
+                    } header: {
+                        Text("selectedStoryLengthIndex")
                     }
                     
                     Section {

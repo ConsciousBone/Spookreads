@@ -19,13 +19,13 @@ struct StoryDetailView: View {
             Section {
                 Text(story.storyName)
             } header: {
-                Text("Story name")
+                Text("Name")
             }
             
             Section {
                 Text(story.storyDescription)
             } header: {
-                Text("Story description")
+                Text("Description")
             }
             
             Section {

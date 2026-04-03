@@ -47,7 +47,7 @@ struct AboutView: View {
              
             // TODO: add sections crediting HC's Siege and Flavortown + links, this app's GH repo, and contact
             Section {
-                Text("Originally developed for Hack Club's Siege, following a theme of \"spooky\", and updated for Hack Club's Flavortown!")
+                Text("AutoBooks was originally developed for Hack Club's Siege, following a theme of \"spooky\" and called Spookreads, and has now been updated for Hack Club's Flavortown!")
                 
                 Button {
                     print("hackclub")
