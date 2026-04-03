@@ -115,7 +115,7 @@ struct AboutView: View {
                 }
                 .tint(.red)
             } footer: {
-                Text("You should typically keep this off, but if you need to debug anything or you're curious how the app works, turn it on!")
+                Text("You should typically keep this off, but if you need to debug anything or if you're curious about how the app works, turn it on!")
             }
         }
     }

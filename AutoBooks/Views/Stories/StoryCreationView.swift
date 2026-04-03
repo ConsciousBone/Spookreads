@@ -11,6 +11,7 @@ import SwiftData
 struct Character: Identifiable {
     var name: String
     var description: String
+    var pronouns: String
     var id = UUID()
 }
 
@@ -39,6 +40,7 @@ struct StoryCreationView: View {
     @State private var showingAddAlert = false
     @State private var alertName = ""
     @State private var alertDesc = ""
+    @State private var alertPronouns = ""
     
     @State private var selectedStoryModeIndex = 0
     let storyModes = [
@@ -111,11 +113,12 @@ struct StoryCreationView: View {
     
     @State private var preciseDescription = ""
     
-     func submit(name: String, desc: String) {
+    func submit(name: String, desc: String, pronouns: String) {
         characters.append(
             Character(
                 name: name,
-                description: desc
+                description: desc,
+                pronouns: pronouns
             )
         )
     }
@@ -123,7 +126,8 @@ struct StoryCreationView: View {
         characters.append(
             Character(
                 name: charRandomNames.randomElement() ?? "",
-                description: charRandomDescriptions.randomElement() ?? ""
+                description: charRandomDescriptions.randomElement() ?? "",
+                pronouns: "any pronouns"
             )
         )
     }
@@ -166,6 +170,12 @@ struct StoryCreationView: View {
         "Friendly but useless."
     ]
     
+    let charPronouns = [
+        "he/him", "she/her",
+        "they/them", "he/they",
+        "she/they", "any pronouns"
+    ]
+    
     func deleteCharacter(at offsets: IndexSet) {
         characters.remove(atOffsets: offsets)
     }
@@ -181,11 +191,11 @@ struct StoryCreationView: View {
     private func buildAIPrompt(intro: String) -> String {
         let charactersBlock: String
         if characters.isEmpty {
-            charactersBlock = "No characters provided."
+            charactersBlock = "No characters provided. Make some up!"
         } else {
             charactersBlock = characters
                 .map {
-                    "- \($0.name): \($0.description)"
+                    "- \($0.name) (\($0.pronouns)): \($0.description)"
                 }
                 .joined(separator: "\n")
         }
@@ -329,7 +339,8 @@ struct StoryCreationView: View {
                             NavigationLink {
                                 CharacterAboutView(
                                     name: $char.name,
-                                    description: $char.description
+                                    description: $char.description,
+                                    pronouns: $char.pronouns
                                 )
                             } label: {
                                 Text(char.name)
@@ -355,9 +366,12 @@ struct StoryCreationView: View {
                 .alert("New character", isPresented: $showingAddAlert) {
                     TextField("Character name", text: $alertName)
                     TextField("Character description", text: $alertDesc)
+                    TextField("Pronouns", text: $alertPronouns)
+                        
                     Button("Add") {
-                        submit(name: alertName, desc: alertDesc)
+                        submit(name: alertName, desc: alertDesc, pronouns: alertPronouns)
                     }
+                    .disabled(alertName.isEmpty || alertDesc.isEmpty || alertPronouns.isEmpty)
                     Button("Cancel", role: .cancel) {}
                 }
                 
