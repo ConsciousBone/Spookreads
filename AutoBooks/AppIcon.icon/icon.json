@@ -1,19 +1,56 @@
 {
   "fill" : {
-    "automatic-gradient" : "display-p3:0.88069,0.56426,0.25724,1.00000"
+    "linear-gradient" : [
+      "display-p3:0.35127,0.51565,0.76661,1.00000",
+      "display-p3:0.12258,0.28556,0.53506,1.00000"
+    ],
+    "orientation" : {
+      "start" : {
+        "x" : 0.5,
+        "y" : 0
+      },
+      "stop" : {
+        "x" : 0.5,
+        "y" : 0.7
+      }
+    }
   },
   "groups" : [
     {
       "layers" : [
         {
-          "glass" : true,
-          "image-name" : "Untitled_Artwork-1.png",
-          "name" : "Untitled_Artwork-1",
+          "image-name" : "AutoBooks_App_Icon-2.png",
+          "name" : "AutoBooks_App_Icon-2",
           "position" : {
-            "scale" : 1.15,
+            "scale" : 1,
             "translation-in-points" : [
               0,
-              -30
+              -65.6681250000001
+            ]
+          }
+        },
+        {
+          "image-name" : "AutoBooks_App_Icon-1.png",
+          "name" : "AutoBooks_App_Icon-1",
+          "opacity" : 0.67,
+          "position" : {
+            "scale" : 0.75,
+            "translation-in-points" : [
+              0,
+              74.09874999999988
+            ]
+          }
+        },
+        {
+          "hidden" : false,
+          "image-name" : "AutoBooks_App_Icon-1 2.png",
+          "name" : "AutoBooks_App_Icon-1 2",
+          "opacity" : 0.4,
+          "position" : {
+            "scale" : 0.58,
+            "translation-in-points" : [
+              0,
+              183.6881249999999
             ]
           }
         }
