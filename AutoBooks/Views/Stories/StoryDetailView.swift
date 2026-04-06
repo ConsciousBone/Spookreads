@@ -18,57 +18,67 @@ struct StoryDetailView: View {
     }
     
     var body: some View {
-        Form {
-            Section {
-                Text(story.storyName)
-            } header: {
-                Text("Name")
-            }
-            
-            Section {
-                Text(story.storyDescription)
-            } header: {
-                Text("Description")
-            }
-            
-            Section {
-                Text(story.date.formatted(date: .long, time: .shortened))
-            } header: {
-                Text("Creation date")
-            }
-            
-            Section {
-                Text(story.storyContent)
-            }
-        }
-        .navigationTitle(story.storyName)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                ShareLink(item: shareText) {
-                    Label("Share book", systemImage: "square.and.arrow.up")
+        NavigationStack {
+            Form {
+                Section {
+                    Text(story.storyName)
+                } header: {
+                    Text("Name")
+                }
+                
+                Section {
+                    Text(story.storyDescription)
+                } header: {
+                    Text("Description")
+                }
+                
+                Section {
+                    Text(story.date.formatted(date: .long, time: .shortened))
+                } header: {
+                    Text("Creation date")
+                }
+                
+                Section {
+                    Text(story.storyContent)
                 }
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    editStoryName = story.storyName
-                    editStoryDescription = story.storyDescription
-                    showingEditAlert.toggle()
-                } label: {
-                    Label("Edit", systemImage: "pencil")
+            .navigationTitle(story.storyName)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    ShareLink(item: shareText) {
+                        Label("Share book", systemImage: "square.and.arrow.up")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        editStoryName = story.storyName
+                        editStoryDescription = story.storyDescription
+                        showingEditAlert.toggle()
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    NavigationLink {
+                        StorySpeechView(story: story)
+                    } label: {
+                        Label("Speak book aloud", systemImage: "waveform")
+                    }
                 }
             }
-        }
-        .alert("Edit story details", isPresented: $showingEditAlert) {
-            TextField("Story name", text: $editStoryName)
-            TextField("Story description", text: $editStoryDescription)
-            Button("Save") {
-                withAnimation {
-                    story.storyName = editStoryName
-                    story.storyDescription = editStoryDescription
+            .alert("Edit story details", isPresented: $showingEditAlert) {
+                TextField("Story name", text: $editStoryName)
+                TextField("Story description", text: $editStoryDescription)
+                Button("Save") {
+                    withAnimation {
+                        story.storyName = editStoryName
+                        story.storyDescription = editStoryDescription
+                    }
                 }
+                Button("Cancel", role: .cancel) {}
             }
-            Button("Cancel", role: .cancel) {}
         }
     }
 }
