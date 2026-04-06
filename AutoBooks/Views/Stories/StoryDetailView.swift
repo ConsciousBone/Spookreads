@@ -13,6 +13,7 @@ struct StoryDetailView: View {
     @State private var editStoryDescription = ""
     
     let story: StoryItem
+    private var shareText: String { "\(story.storyName)\n\(story.storyDescription)\n\n\(story.storyContent)" }
     
     var body: some View {
         Form {
@@ -41,6 +42,11 @@ struct StoryDetailView: View {
         .navigationTitle(story.storyName)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                ShareLink(item: shareText) {
+                    Label("Share book", systemImage: "square.and.arrow.up")
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     editStoryName = story.storyName
