@@ -21,9 +21,6 @@ class SpeechEngine: NSObject, @preconcurrency AVSpeechSynthesizerDelegate {
     
     func speakText(_ input: String) {
         let utterance = AVSpeechUtterance(string: input)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-        utterance.rate = 0.5
-        
         isSpeaking = true
         isPaused = false
         synthesizer.speak(utterance)
