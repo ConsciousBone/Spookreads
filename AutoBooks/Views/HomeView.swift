@@ -53,11 +53,16 @@ struct HomeView: View {
         NavigationStack {
             Form {
                 Section {
-                    Text(greeting)
-                        .font(.title)
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(greeting)
+                            .font(.title)
+                        Text("You've generated ^[\(storyItems.count) book](inflect: true) so far.")
+                            .font(.subheadline)
+                    }
                 } header: {
                     Text("\(displayName) - version \(appVersion) build \(buildNumber)")
                 }
+                .listRowSeparator(.hidden)
                 
                 if let story = newestStory {
                     Section {
