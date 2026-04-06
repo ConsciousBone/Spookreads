@@ -16,30 +16,45 @@ struct ExperimentsView: View {
             Section("Speech synthesis") {
                 TextField("Text to speak", text: $textToSpeak)
                 
-                Button {
-                    speechEngine.speakText(textToSpeak)
-                } label: {
-                    Label("Speak text", systemImage: "mic")
+                if speechEngine.isSpeaking {
+                    Button {
+                        withAnimation {
+                            speechEngine.stopSpeech()
+                        }
+                    } label: {
+                        Label("Stop speech", systemImage: "stop")
+                    }
+                    Button {
+                        withAnimation {
+                            speechEngine.pauseSpeech()
+                        }
+                    } label: {
+                        Label("Pause speech", systemImage: "pause")
+                    }
+                } else if speechEngine.isPaused {
+                    Button {
+                        withAnimation {
+                            speechEngine.stopSpeech()
+                        }
+                    } label: {
+                        Label("Stop speech", systemImage: "stop")
+                    }
+                    Button {
+                        withAnimation {
+                            speechEngine.continueSpeech()
+                        }
+                    } label: {
+                        Label("Continue speech", systemImage: "play")
+                    }
+                } else {
+                    Button {
+                        withAnimation {
+                            speechEngine.speakText(textToSpeak)
+                        }
+                    } label: {
+                        Label("Speak text", systemImage: "mic")
+                    }
                 }
-                
-                Button {
-                    speechEngine.continueSpeech()
-                } label: {
-                    Label("Continue speech", systemImage: "play")
-                }
-                
-                Button {
-                    speechEngine.pauseSpeech()
-                } label: {
-                    Label("Pause speech", systemImage: "pause")
-                }
-                
-                Button {
-                    speechEngine.stopSpeech()
-                } label: {
-                    Label("Stop speech", systemImage: "stop")
-                }
-                
             }
         }
     }
