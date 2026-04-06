@@ -13,7 +13,9 @@ struct StoryDetailView: View {
     @State private var editStoryDescription = ""
     
     let story: StoryItem
-    private var shareText: String { "\(story.storyName)\n\(story.storyDescription)\n\n\(story.storyContent)" }
+    private var shareText: String {
+        "\(story.storyName)\n\(story.storyDescription)\n\n\(story.storyContent)"
+    }
     
     var body: some View {
         Form {
