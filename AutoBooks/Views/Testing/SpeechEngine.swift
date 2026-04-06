@@ -8,8 +8,8 @@
 import Foundation
 import AVFoundation
 
-@Observable
-class SpeechEngine: NSObject, AVSpeechSynthesizerDelegate {
+@Observable @MainActor
+class SpeechEngine: NSObject, @preconcurrency AVSpeechSynthesizerDelegate {
     private let synthesizer = AVSpeechSynthesizer()
     var isSpeaking = false
     var isPaused = false
