@@ -23,9 +23,17 @@ struct HomeView: View {
     var newestStory: StoryItem? {
         storyItems.first
     }
+    private var newestShareText: String {
+        guard let story = newestStory else { return "" }
+        return "\(story.storyName)\n\(story.storyDescription)\n\n\(story.storyContent)"
+    }
     
     var randomStory: StoryItem? {
         storyItems.randomElement()
+    }
+    private var randomShareText: String {
+        guard let story = newestStory else { return "" }
+        return "\(story.storyName)\n\(story.storyDescription)\n\n\(story.storyContent)"
     }
     
     var greeting: String {
@@ -73,6 +81,9 @@ struct HomeView: View {
                                     .foregroundStyle(.secondary)
                             }
                         }
+                        ShareLink(item: newestShareText) {
+                            Label("Share book", systemImage: "square.and.arrow.up")
+                        }
                     } header: {
                         Text("Newest book")
                     }
@@ -102,21 +113,13 @@ struct HomeView: View {
                                     .foregroundStyle(.secondary)
                             }
                         }
+                        ShareLink(item: randomShareText) {
+                            Label("Share book", systemImage: "square.and.arrow.up")
+                        }
                     } header: {
                         Text("Random book")
                     }
                 }
-                
-                //Section {
-                //    Toggle(isOn: $jumpscaresEnabled) {
-                //        Label("Jumpscares", systemImage: "theatermasks")
-                //    }
-                //    .tint(.red)
-                //} header: {
-                //    Text("It's spooky season!")
-                //} footer: {
-                //    Text("This causes a slightly spooky image to appear on the screen for 1 second every 15 to 45 seconds.")
-                //}
             }
             .sheet(isPresented: $showingNewStorySheet) {
                 StoryCreationView()
