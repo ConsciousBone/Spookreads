@@ -8,35 +8,38 @@
 import SwiftUI
 
 struct ExperimentsView: View {
+    @State private var speechEngine = SpeechEngine()
     @State private var textToSpeak = ""
+    
     var body: some View {
         Form {
             Section("Speech synthesis") {
                 TextField("Text to speak", text: $textToSpeak)
                 
                 Button {
-                    speakText(textToSpeak)
+                    speechEngine.speakText(textToSpeak)
                 } label: {
                     Label("Speak text", systemImage: "mic")
                 }
                 
                 Button {
-                    continueSpeech()
+                    speechEngine.continueSpeech()
                 } label: {
                     Label("Continue speech", systemImage: "play")
                 }
                 
                 Button {
-                    pauseSpeech()
+                    speechEngine.pauseSpeech()
                 } label: {
                     Label("Pause speech", systemImage: "pause")
                 }
                 
                 Button {
-                    stopSpeech()
+                    speechEngine.stopSpeech()
                 } label: {
                     Label("Stop speech", systemImage: "stop")
                 }
+                
             }
         }
     }
