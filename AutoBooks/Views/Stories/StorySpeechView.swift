@@ -19,6 +19,9 @@ struct StorySpeechView: View {
             VStack {
                 Label(story.storyName, systemImage: "waveform")
                     .font(.title.bold())
+                    .padding(.bottom, 3)
+                Text(story.date.formatted(date: .long, time: .shortened))
+                    .font(.subheadline)
                     .padding(.bottom)
                 
                 HStack(spacing: 20) {

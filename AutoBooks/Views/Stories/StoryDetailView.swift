@@ -39,6 +39,14 @@ struct StoryDetailView: View {
                 }
                 
                 Section {
+                    NavigationLink {
+                        StorySpeechView(story: story)
+                    } label: {
+                        Label("Read as audiobook", systemImage: "waveform")
+                    }
+                }
+                
+                Section {
                     Text(story.storyContent)
                 }
             }
@@ -57,14 +65,6 @@ struct StoryDetailView: View {
                         showingEditAlert.toggle()
                     } label: {
                         Label("Edit", systemImage: "pencil")
-                    }
-                }
-                
-                ToolbarItem(placement: .bottomBar) {
-                    NavigationLink {
-                        StorySpeechView(story: story)
-                    } label: {
-                        Label("Speak book aloud", systemImage: "waveform")
                     }
                 }
             }
