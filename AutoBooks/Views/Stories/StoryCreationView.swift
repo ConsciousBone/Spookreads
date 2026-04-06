@@ -469,7 +469,7 @@ struct StoryCreationView: View {
                         if isLoading {
                             ProgressView()
                         } else {
-                            Label("Generate story", systemImage: "wand.and.sparkles")
+                            Label("Generate book", systemImage: "wand.and.sparkles")
                         }
                     }
                     .disabled(generateButtonDisabled)

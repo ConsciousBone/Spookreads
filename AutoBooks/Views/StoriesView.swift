@@ -20,15 +20,15 @@ struct StoriesView: View {
         NavigationStack {
             if storyItems.count == 0 {
                 ContentUnavailableView {
-                    Label("No stories", systemImage: "book")
+                    Label("No books", systemImage: "book")
                 } description: {
-                    Text("You haven't saved any stories yet.")
+                    Text("You haven't saved any books yet.")
                 } actions: {
                     Button {
                         print("showing story popup")
                         showingNewStorySheet.toggle()
                     } label: {
-                        Label("New story", systemImage: "plus")
+                        Label("New book", systemImage: "plus")
                     }
                     .buttonStyle(.bordered)
                 }
