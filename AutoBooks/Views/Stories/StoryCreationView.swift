@@ -440,6 +440,12 @@ struct StoryCreationView: View {
                     } header: {
                         Text("Description")
                     }
+                    .onAppear {
+                        withAnimation {
+                            selectedStoryThemeIndex = Int.random(in: 0..<storyThemes.count)
+                            selectedStoryEnvironmentIndex = Int.random(in: 0..<storyEnvironments.count)
+                        }
+                    }
                 }
                 
                 if selectedStoryModeIndex == 1 {
