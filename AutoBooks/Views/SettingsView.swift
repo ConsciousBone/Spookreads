@@ -30,6 +30,8 @@ struct SettingsView: View {
         "White", "Black"
     ]
     
+    @AppStorage("showTesting") private var showTesting = false
+    
     var body: some View {
         NavigationView {
             Form {
@@ -58,6 +60,18 @@ struct SettingsView: View {
                         AboutView()
                     } label: {
                         Label("About \(displayName)", systemImage: "info")
+                    }
+                }
+                
+                if showTesting {
+                    Section {
+                        NavigationLink {
+                            ExperimentsView()
+                        } label: {
+                            Label("Experiments", systemImage: "flask")
+                        }
+                    } header: {
+                        Text("Debug tools")
                     }
                 }
             }
