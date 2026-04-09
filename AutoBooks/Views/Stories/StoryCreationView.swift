@@ -98,6 +98,11 @@ struct StoryCreationView: View {
                 "City center", "Party",
                 "Shopping mall", "Empty field",
                 "Dense forest", "Rainy streets",
+                "Empty alley", "Rural road",
+                "Train station", "Rooftop",
+                "School", "Busy café",
+                "Office building", "Arcade",
+                "Rooftop", "Hiking trail",
                 // legacy
                 "Foggy night", "Graveyard",
                 "Abandoned street", "Haunted house"
@@ -106,7 +111,12 @@ struct StoryCreationView: View {
             return [
                 "City center", "Party",
                 "Shopping mall", "Empty field",
-                "Dense forest", "Rainy streets"
+                "Dense forest", "Rainy streets",
+                "Empty alley", "Rural road",
+                "Train station", "Rooftop",
+                "School", "Busy café",
+                "Office building", "Arcade",
+                "Rooftop", "Hiking trail"
             ]
         }
     }
@@ -174,7 +184,12 @@ struct StoryCreationView: View {
         "All bark, no bite.",
         "The most intelligent in the group.",
         "Has no common sense.",
-        "Friendly but useless."
+        "Friendly but useless.",
+        "Incredibly intelligent",
+        "Troublemaker",
+        "Quietly observant",
+        "Very stubborn",
+        "Desperate for attention"
     ]
     
     let charPronouns = [
@@ -208,19 +223,18 @@ struct StoryCreationView: View {
         }
         
         let storyLengthBlock: String
-        // this is probably an awful way to do this,
-        // but its easy so eh whatever
-        if selectedStoryLengthIndex == 0 { // extra short
+        switch selectedStoryLengthIndex {
+        case 0: // extra short
             storyLengthBlock = "around 1 to 2 paragraphs long."
-        } else if selectedStoryLengthIndex == 1 { // short
+        case 1: // short
             storyLengthBlock = "around 3 to 4 paragraphs long."
-        } else if selectedStoryLengthIndex == 2 { // regular
+        case 2: // regular
             storyLengthBlock = "around 4 to 5 paragraphs long."
-        } else if selectedStoryLengthIndex == 3 { // long
+        case 3: // long
             storyLengthBlock = "around 5 to 6 paragraphs long."
-        } else if selectedStoryLengthIndex == 4 { // extra long
+        case 4: // extra long
             storyLengthBlock = "around 6 to 7 paragraphs long."
-        } else { // fall back to regular
+        default: // fall back to regular
             storyLengthBlock = "around 4 to 5 paragraphs long."
         }
         
@@ -236,7 +250,7 @@ struct StoryCreationView: View {
         JSON field rules:
         - "storyName": a short title fitting for the story, 2 to 6 words.
         - "storyDescription": 1 to 2 sentences describing the premise of the story.
-        - "storyContent": the full story text, \(storyLengthBlock)
+        - "storyContent": the full story text, make it \(storyLengthBlock)
         
         Rules for your response:
         - No markdown. No code fences. No extra text.
@@ -530,6 +544,8 @@ struct StoryCreationView: View {
                             Label("Show debug info", systemImage: "ant")
                         }
                         .tint(.red)
+                    } header: {
+                        Text("Debug tools")
                     }
                 }
                 

@@ -14,7 +14,7 @@ struct StoryDetailView: View {
     
     let story: StoryItem
     private var shareText: String {
-        "\(story.storyName)\n\(story.storyDescription)\n\n\(story.storyContent)"
+        "\(story.storyName)\n\(story.storyDescription)\n\(story.date.formatted(date: .long, time: .shortened))\n\n\(story.storyContent)"
     }
     
     var body: some View {

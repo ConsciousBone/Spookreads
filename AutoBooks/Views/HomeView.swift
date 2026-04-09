@@ -28,11 +28,9 @@ struct HomeView: View {
         return "\(story.storyName)\n\(story.storyDescription)\n\n\(story.storyContent)"
     }
     
-    var randomStory: StoryItem? {
-        storyItems.randomElement()
-    }
+    @State private var randomStory: StoryItem? = nil
     private var randomShareText: String {
-        guard let story = newestStory else { return "" }
+        guard let story = randomStory else { return "" }
         return "\(story.storyName)\n\(story.storyDescription)\n\n\(story.storyContent)"
     }
     
@@ -121,6 +119,12 @@ struct HomeView: View {
                         ShareLink(item: randomShareText) {
                             Label("Share book", systemImage: "square.and.arrow.up")
                         }
+                        Button {
+                            print("new random book")
+                            randomStory = storyItems.randomElement()
+                        } label: {
+                            Label("Shuffle", systemImage: "shuffle")
+                        }
                     } header: {
                         Text("Random book")
                     }
@@ -129,6 +133,11 @@ struct HomeView: View {
             .sheet(isPresented: $showingNewStorySheet) {
                 StoryCreationView()
                     .presentationDetents([.medium, .large])
+            }
+            .onAppear {
+                if randomStory == nil {
+                    randomStory = storyItems.randomElement()
+                }
             }
         }
     }

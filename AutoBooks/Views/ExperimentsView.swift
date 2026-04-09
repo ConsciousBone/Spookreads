@@ -58,6 +58,7 @@ struct ExperimentsView: View {
             }
         }
         .navigationTitle("Experiments")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
