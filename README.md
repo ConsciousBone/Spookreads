@@ -24,7 +24,7 @@ Or for more information, see the repo for the backend [here](https://github.com/
 # How to get AutoBooks
 This is the way I recommend, but there are other ways to sideload apps onto iOS/iPadOS devices and they will work for AutoBooks, I'm just using Sideloadly as an example.  
 1. Install [Sideloadly](https://sideloadly.io/) and its dependencies; if I remember correctly macOS has none but Windows needs iTunes and iCloud **not from the Microsoft Store!**. The Sideloadly website will link you to the requirements for your OS.  
-2. From the [Releases](https://github.com/ConsciousBone/AutoBooks/releases/tag/stable) tab, find the latest release - it should be the first one at the top - and download the attached `AutoBooks.ipa` file.
+2. From the [Releases](https://github.com/ConsciousBone/AutoBooks/releases/tag/v2) tab, find the latest release - it should be the first one at the top - and download the attached `AutoBooks.ipa` file.
 3. Using a cable that supports both charging *and* data transfer, connect your device (iPhone or iPad, the sideloading process for Macs and AVPs is different) to your computer, select `Trust` and enter your passcode if prompted, and open Sideloadly.
 4. In Sideloadly, click the file icon with the `IPA` text amd select the previously downloaded `AutoBooks.ipa` file.
 5. Select your device in the `iDevice` dropdown, and make sure the name matches with the device you wish to sideload Spookreads to. 
