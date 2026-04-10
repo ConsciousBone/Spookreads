@@ -3,10 +3,11 @@ AutoBooks (formerly known as Spookreads) is an iOS/iPadOS app for generating boo
 It supports iPhone and iPad, as well as Mac and Apple Vision Pro using *Designed for iPad*!
 
 # Proxy down?
-My server likes to occaisionally shut itself down for no real reason, I blame Proxmox.
-If the API requests fail for some reason, you are actually connected to the internet, and you have tried all of the regular troubleshooting steps (including turning it off and on again), then ping me on Slack or email me at `eplant@consciousb.one` and I'll get it working again ASAP!
+If the API requests fail for some reason, you are actually connected to the internet, and you have tried all of the regular troubleshooting steps (including turning it off and on again), then ping me on Slack or email me at `apps@consciousb.one` and I'll get it working again ASAP!
 
 # Demos
+## TestFlight Beta
+[Download](https://testflight.apple.com/join/aMQ4eEQd)
 ## Screenshots
 <img src="/Screenshots/1.png" width=128> <img src="/Screenshots/2.png" width=128> <img src="/Screenshots/3.png" width=128>
 <img src="/Screenshots/4.png" width=128> <img src="/Screenshots/5.png" width=128> <img src="/Screenshots/6.png" width=128>
@@ -14,7 +15,7 @@ If the API requests fail for some reason, you are actually connected to the inte
 <img src="/Screenshots/10.png" width=128> <img src="/Screenshots/11.png" width=128> <img src="/Screenshots/12.png" width=128>
 <img src="/Screenshots/13.png" width=128>
 ## Video
-[YouTube link (unlisted)](https://youtu.be/rsNRq54jlAo)
+[YouTube link (unlisted)](https://youtu.be/zfynFEOVkWM)
 
 # Backend (proxy server)
 The backend to this is powered by Nginx, and is the same backend as Leafy, my Siege Week 8 project that logs and identifies leaves found by the user. It's still all hosted locally at my house and running on Ubuntu Desktop 25.04 inside of Proxmox!  
@@ -39,6 +40,6 @@ Once I realised Flavortown had been extended, I picked this up again with the in
 # Tech stack
 - Swift (what practically every modern iOS/iPadOS app is written in)
 - SwiftUI (for the whole of the app's UI, also the best UI framework I've ever used)
-- SwiftData (to store the books, duh)
+- SwiftData (to store the books, kinda useful...)
 - OpenAI API (on the backend, actually writes the stories and sends them back to us! I'm using `gpt-4o-mini` for Spookreads because it's cheap and also pretty fast)
 - Nginx (on the backend, proxies the requests from my server to OpenAI so I don't leak my API key)
