@@ -369,128 +369,130 @@ struct StoryCreationView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    if characters.isEmpty {
-                        Text("No characters.")
-                    } else {
-                        ForEach($characters) { $char in
-                            NavigationLink {
-                                CharacterAboutView(
-                                    name: $char.name,
-                                    description: $char.description,
-                                    pronouns: $char.pronouns
-                                )
-                            } label: {
-                                Text(char.name)
+                if aiStoryName.isEmpty {
+                    Section {
+                        if characters.isEmpty {
+                            Text("No characters.")
+                        } else {
+                            ForEach($characters) { $char in
+                                NavigationLink {
+                                    CharacterAboutView(
+                                        name: $char.name,
+                                        description: $char.description,
+                                        pronouns: $char.pronouns
+                                    )
+                                } label: {
+                                    Text(char.name)
+                                }
                             }
-                        }
-                        .onDelete(perform: deleteCharacter)
-                    }
-                    
-                    Button {
-                        showingAddAlert.toggle()
-                    } label: {
-                        Label("Add Character", systemImage: "plus")
-                    }
-                    
-                    Button {
-                        submitRandom()
-                    } label: {
-                        Label("Add Character (random)", systemImage: "dice")
-                    }
-                } header: {
-                    Text("Characters")
-                }
-                .alert("New character", isPresented: $showingAddAlert) {
-                    TextField("Character name", text: $alertName)
-                    TextField("Character description", text: $alertDesc)
-                    TextField("Pronouns", text: $alertPronouns)
-                        
-                    Button("Add") {
-                        submit(name: alertName, desc: alertDesc, pronouns: alertPronouns)
-                    }
-                    .disabled(alertName.isEmpty || alertDesc.isEmpty || alertPronouns.isEmpty)
-                    Button("Cancel", role: .cancel) {}
-                }
-                
-                Section { // mode selector
-                    Picker(selection: $selectedStoryModeIndex) {
-                        ForEach(storyModes.indices, id: \.self) { index in
-                            Text(storyModes[index])
-                        }
-                    } label: {
-                        Label("Description mode", systemImage: "pencil")
-                    }
-                } header: {
-                    Text("Modes")
-                }
-                
-                if selectedStoryModeIndex == 0 {
-                    Section { // normal, picker based
-                        Picker(selection: $selectedStoryThemeIndex) {
-                            ForEach(storyThemes.indices, id: \.self) { index in
-                                Text(storyThemes[index])
-                            }
-                        } label: {
-                            Label("Theme", systemImage: "paintpalette")
-                        }
-                        
-                        Picker(selection: $selectedStoryEnvironmentIndex) {
-                            ForEach(storyEnvironments.indices, id: \.self) { index in
-                                Text(storyEnvironments[index])
-                            }
-                        } label: {
-                            Label("Environment", systemImage: "mountain.2")
+                            .onDelete(perform: deleteCharacter)
                         }
                         
                         Button {
-                            withAnimation {
-                                selectedStoryThemeIndex = Int.random(in: 0..<storyThemes.count)
-                                selectedStoryEnvironmentIndex = Int.random(in: 0..<storyEnvironments.count)
+                            showingAddAlert.toggle()
+                        } label: {
+                            Label("Add Character", systemImage: "plus")
+                        }
+                        
+                        Button {
+                            submitRandom()
+                        } label: {
+                            Label("Add Character (random)", systemImage: "dice")
+                        }
+                    } header: {
+                        Text("Characters")
+                    }
+                    .alert("New character", isPresented: $showingAddAlert) {
+                        TextField("Character name", text: $alertName)
+                        TextField("Character description", text: $alertDesc)
+                        TextField("Pronouns", text: $alertPronouns)
+                        
+                        Button("Add") {
+                            submit(name: alertName, desc: alertDesc, pronouns: alertPronouns)
+                        }
+                        .disabled(alertName.isEmpty || alertDesc.isEmpty || alertPronouns.isEmpty)
+                        Button("Cancel", role: .cancel) {}
+                    }
+                    
+                    Section { // mode selector
+                        Picker(selection: $selectedStoryModeIndex) {
+                            ForEach(storyModes.indices, id: \.self) { index in
+                                Text(storyModes[index])
                             }
                         } label: {
-                            Label("Randomise", systemImage: "shuffle")
+                            Label("Description mode", systemImage: "pencil")
                         }
                     } header: {
-                        Text("Description")
+                        Text("Modes")
                     }
-                }
-                
-                if selectedStoryModeIndex == 1 {
-                    Section { // precise, text based
-                        TextField("Description", text: $preciseDescription)
-                    } header: {
-                        Text("Description")
-                    }
-                }
-                
-                Section {
-                    Picker(selection: $selectedStoryLengthIndex) {
-                        ForEach(storyLengths.indices, id: \.self) { i in
-                            Text(storyLengths[i])
-                        }
-                    } label: {
-                        Label("Length", systemImage: "clock")
-                    }
-
-                }
-                
-                Section {
-                    Button {
-                        print("generating story")
-                        generateStory()
-                    } label: {
-                        if isLoading {
-                            ProgressView()
-                        } else {
-                            Label("Generate book", systemImage: "wand.and.sparkles")
-                        }
-                    }
-                    .disabled(generateButtonDisabled)
                     
-                    if !errorText.isEmpty { // error has done an error
-                        Text("An error has occured, please try again.")
-                        Text(errorText)
+                    if selectedStoryModeIndex == 0 {
+                        Section { // normal, picker based
+                            Picker(selection: $selectedStoryThemeIndex) {
+                                ForEach(storyThemes.indices, id: \.self) { index in
+                                    Text(storyThemes[index])
+                                }
+                            } label: {
+                                Label("Theme", systemImage: "paintpalette")
+                            }
+                            
+                            Picker(selection: $selectedStoryEnvironmentIndex) {
+                                ForEach(storyEnvironments.indices, id: \.self) { index in
+                                    Text(storyEnvironments[index])
+                                }
+                            } label: {
+                                Label("Environment", systemImage: "mountain.2")
+                            }
+                            
+                            Button {
+                                withAnimation {
+                                    selectedStoryThemeIndex = Int.random(in: 0..<storyThemes.count)
+                                    selectedStoryEnvironmentIndex = Int.random(in: 0..<storyEnvironments.count)
+                                }
+                            } label: {
+                                Label("Randomise", systemImage: "shuffle")
+                            }
+                        } header: {
+                            Text("Description")
+                        }
+                    }
+                    
+                    if selectedStoryModeIndex == 1 {
+                        Section { // precise, text based
+                            TextField("Description", text: $preciseDescription)
+                        } header: {
+                            Text("Description")
+                        }
+                    }
+                    
+                    Section {
+                        Picker(selection: $selectedStoryLengthIndex) {
+                            ForEach(storyLengths.indices, id: \.self) { i in
+                                Text(storyLengths[i])
+                            }
+                        } label: {
+                            Label("Length", systemImage: "clock")
+                        }
+                        
+                    }
+                    
+                    Section {
+                        Button {
+                            print("generating story")
+                            generateStory()
+                        } label: {
+                            if isLoading {
+                                ProgressView()
+                            } else {
+                                Label("Generate book", systemImage: "wand.and.sparkles")
+                            }
+                        }
+                        .disabled(generateButtonDisabled)
+                        
+                        if !errorText.isEmpty { // error has done an error
+                            Text("An error has occured, please try again.")
+                            Text(errorText)
+                        }
                     }
                 }
                 

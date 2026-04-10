@@ -121,7 +121,9 @@ struct HomeView: View {
                         }
                         Button {
                             print("new random book")
-                            randomStory = storyItems.randomElement()
+                            withAnimation {
+                                randomStory = storyItems.randomElement()
+                            }
                         } label: {
                             Label("Shuffle", systemImage: "shuffle")
                         }
